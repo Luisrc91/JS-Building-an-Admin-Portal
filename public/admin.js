@@ -3,10 +3,10 @@
 // book title, input, button
 //event listener to save button book udate
 
-const { json } = require("body-parser")
+// const { json } = required("body-parser")
 
 // fech request 
-async function main(){
+async function main() {
     const response = await fetch('http://localhost:3001/listBooks')
     const books = await response.json()
     // console.log(book)
@@ -14,7 +14,8 @@ async function main(){
     books.forEach(renderBook)
     // console.log(book)
 }
-function renderBook(book){
+
+function renderBook(book) {
     console.log(book)
     const root = document.getElementById('root')
     const li = document.createElement('li')
@@ -24,24 +25,20 @@ function renderBook(book){
     input.value = book.quantity
    
     const saveButton = document.createElement('button')
-    saveButton.textContent = 'save'
-
-    // const body = {
-    //     id = book.id,
-    //     quantity: input.value
-    // }
+    saveButton.textContent = 'Save'
 
     saveButton.addEventListener('click', () => {
         const body = {
             id : book.id,
             quantity: input.value
         }
-        fetch('http://localhost:3001/updateBook',)
-            method: 'PACTH',
+        fetch('http://localhost:3001/updateBook',{
+            method: 'PATCH',
             headers: {
-            'content-type': 'application/json'
+                'content-type': 'application/json'
             },
-            body: JSON.stringify(body)
+          body: JSON.stringify(body)
+        })
     })
    
     li.append(input, saveButton)
